@@ -26,7 +26,8 @@ class MainWindow(qtw.QWidget, Ui_Form):
         #create lists of input and display widgets
         self.input_widgets = [self.rb_SI,self.le_PHigh, self.le_PLow, self.le_TurbineInletCondition, self.rdo_Quality, self.le_TurbineEff, self.cmb_XAxis, self.cmb_YAxis, self.chk_logX, self.chk_logY]
         self.display_widgets=[self.lbl_PHigh, self.lbl_PLow, self.lbl_SatPropLow,self.lbl_SatPropHigh, self.lbl_TurbineInletCondition, self.lbl_H1, self.lbl_H1Units, self.lbl_H2, self.lbl_H2Units, self.lbl_H3, self.lbl_H3Units, self.lbl_H4, self.lbl_H4Units, self.lbl_TurbineWork, self.lbl_TurbineWorkUnits, self.lbl_PumpWork, self.lbl_PumpWorkUnits, self.lbl_HeatAdded, self.lbl_HeatAddedUnits, self.lbl_ThermalEfficiency, self.canvas, self.figure, self.ax]
-        self.RC=#JES Missing Code  # instantiate a rankineController object and pass as arguments the two lists of widgets to be unpacked into the View
+        self.RC = rankineController()
+        self.RC.updateView(self.input_widgets, self.display_widgets)
 
         self.setNewPHigh()
         self.setNewPLow()
@@ -86,28 +87,41 @@ class MainWindow(qtw.QWidget, Ui_Form):
         self.setWindowTitle('s:{:0.2f} {}, T:{:0.2f} {}'.format(self.oldXData,sUnit, self.oldYData,TUnit))
 
     def Calculate(self):
-        #JES Missing Code #call the updateModel() method of the controller
-        pass
+        """
+        Calls the updateModel() method of the controller
+        """
+        self.RC.updateModel()
 
     def SelectQualityOrTHigh(self):
-        #JES Missing code #call the selectQualityOrTHigh() methond of the controller
-        pass
+        """
+        Calls the selectQualityOrTHigh() method of the controller
+        """
+        self.RC.selectQualityOrTHigh()
 
     def SetPlotVariables(self):
-        #JES Missing Code # call the updatePlot() method of the controller
-        pass
+        """
+        Calls the updatePlot() method of the controller
+        """
+        self.RC.updatePlot()
 
     def SetUnits(self):
-        #JES Missing Code # call the updateUnits() method of the controller
-        pass
+        """
+        Calls the updateUnits() method of the controller
+        """
+        self.RC.updateUnits()
 
     def setNewPHigh(self):
-        #JES Missing Code # call the setNewPHigh() function of the controller
-        pass
+        """
+        Calls the setNewPHigh() function of the controller
+        """
+        self.RC.setNewPHigh()
 
     def setNewPLow(self):
-        #JES Missing Code # call the setNewPLow() function of the controller
-        pass
+        """
+        Calls the setNewPLow() function of the controller
+        """
+        self.RC.setNewPLow()
+
 
 #endregion
 

@@ -393,13 +393,22 @@ class rankineController():
         and updates the rankineView as well
         :param *args: a tuple containing widgets that get updated in the View
         """
-        self.Model=#JES Missing Code  # In MVC pattern, the controller should hold a reference to the model
-        self.View=#JES Missing Code  # In MVC pattern, the controller should hold a reference to the view
-        self.IW=args[0]  # an array of widgets that are for user input
-        self.DW=args[1]  # an array of widgets that are for display
-        #JES Missing Code # call the setWidgets function of the view with self.IW and self.DW as arguments (see unpacking)
+        self.Model = rankineModel()  # In MVC pattern, the controller should hold a reference to the model
+        self.View = rankineView()  # In MVC pattern, the controller should hold a reference to the view
+        self.IW = args[0]  # an array of widgets that are for user input
+        self.DW = args[1]  # an array of widgets that are for display
+        self.View.setWidgets(*args)  # Call the setWidgets function of the view with self.IW and self.DW as arguments (see unpacking)
 
         self.buildVaporDomeData()
+
+    def buildVaporDomeData(self):
+        """
+        Build data for VaporDome from XSteam object
+        :return: Nothing
+        """
+        # Perform necessary operations to build data for VaporDome
+        pass
+
 
     def updateModel(self):
         """

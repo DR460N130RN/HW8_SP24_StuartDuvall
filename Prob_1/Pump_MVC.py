@@ -42,11 +42,11 @@ class Pump_Controller():
         :param data: 
         :return: 
         """
-        self.Model.PumpName = #JES Missing Code
-        #data[1] is the units line
-        L=data[2].split()
-        self.Model.FlowUnits = #JES Missing Code
-        self.Model.HeadUnits = #JES Missing Code
+        self.Model.PumpName = data[0].strip()  # Assuming the first line contains the pump name
+        # Data[1] is the units line
+        units_line = data[1].split()
+        self.Model.FlowUnits = units_line[0]  # Assuming the first element is the flow units
+        self.Model.HeadUnits = units_line[1]  # Assuming the second element is the head units
 
         # extracts flow, head and efficiency data and calculates coefficients
         self.SetData(data[3:])
@@ -64,14 +64,17 @@ class Pump_Controller():
         self.Model.HeadData = np.array([])
         self.Model.EffData = np.array([])
 
-        #parse new data
-        for L in data:
-            Cells=#JES Missing Code #parse the line into an array of strings
-            self.Model.FlowData=np.append(self.Model.FlowData, #JES Missing Code) #remove any spaces and convert string to a float
-            self.Model.HeadData=np.append(self.Model.HeadData, #JES Missing Code) #remove any spaces and convert string to a float
-            self.Model.EffData=np.append(self.Model.EffData, #JES Missing Code) #remove any spaces and convert string to a float
+        # Parse new data
+        for line in data:
+            cells = line.split()  # Split the line into an array of strings
+            self.Model.FlowData = np.append(self.Model.FlowData,
+                                            float(cells[0]))  # Remove any spaces and convert string to a float
+            self.Model.HeadData = np.append(self.Model.HeadData,
+                                            float(cells[1]))  # Remove any spaces and convert string to a float
+            self.Model.EffData = np.append(self.Model.EffData,
+                                           float(cells[2]))  # Remove any spaces and convert string to a float
 
-        #call least square fit for head and efficiency
+        # Call least square fit for head and efficiency
         self.LSFit()
         
     def LSFit(self):

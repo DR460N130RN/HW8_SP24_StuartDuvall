@@ -13,6 +13,18 @@ from pump import Ui_Form
 #endregion
 
 #region class definitions
+class PumpController:
+    pass
+
+
+class PumpView:
+    pass
+
+
+class PumpModel:
+    pass
+
+
 class PumpCurve_GUI_Class(Ui_Form, qtw.QWidget):  #class for PumpCurve_GUI inherits from Ui_Form & qtw.QWidget
     def __init__(self): #constructor for this class
         super().__init__() #runs constructor from parent classes
@@ -28,10 +40,18 @@ class PumpCurve_GUI_Class(Ui_Form, qtw.QWidget):  #class for PumpCurve_GUI inher
         #add the canvas to the form (can't be done directly in qtdesigner)
         self.GL_Output.addWidget(self.canvas,5,0,1,4)
 
-        self.myPump=#JES Missing Code #create a pump controller object
-        self.setViewWidgets() #pass along widgets to myPump for diaplay
+        # Creating the Model, View, and Controller objects
+        model = PumpModel()
+        view = PumpView()
+        controller = PumpController(model, view)
 
-        #show the widget
+        # Creating the PumpController object
+        self.myPump = controller
+
+        # Pass along widgets to myPump for display
+        self.setViewWidgets()
+
+        # Show the widget
         self.show()
 
     def AssignSignals(self): #connect the signals from buttons to slots
@@ -69,8 +89,8 @@ class PumpCurve_GUI_Class(Ui_Form, qtw.QWidget):  #class for PumpCurve_GUI inher
         return True
         :return: boolean for if the operation was successful.
         '''
-        fname=#JES Missing Code # use qtw.QFileDialog.getOpenFileName
-        oTF=len(fname[0])>0
+        fname, _ = qtw.QFileDialog.getOpenFileName(self, 'Open File', self.FilePath)
+        oTF = bool(fname)
         if oTF:
             self.FileName=fname[0]
             self.FilePath=str(Path(fname[0]).parents[0])+'/'
